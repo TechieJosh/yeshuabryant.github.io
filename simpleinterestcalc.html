@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Simple interest calc</title>
+</head>
+<body>
+
+<div id="lcol">
+
+	<div id="doc">
+	<!-- #BeginEditable "doctext" -->
+		<h1>Simple interest calculator</h1>
+		<p>Simple interest calculator.</p>
+		<form name="calcform">
+		<table class="calc2">
+			<tr>
+				<td>Select currency:</td>
+				<td style="width:40px">&nbsp;</td>
+				<td><select name="Select1" onchange="OnCurrencyChange()" style="font-size:medium" autofocus>
+					<option selected="selected">Dollar ($)</option>
+					<option>Pound (&pound;)</option>
+					<option>Euro (&euro;)</option>
+					<option>Krona (kr)</option>
+					<option>Leu (L)</option>
+					<option>Lira (t)</option>
+					<option>Peso (P)</option>
+					<option>Ringgit (RM)</option>
+					<option>Rupee (R)</option>
+					<option>Rupee (Rs)</option>
+					<option>Shekel (&#8362;)</option>
+					<option>Zloty (zl)</option>
+					<option>- other -</option>
+				</select></td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>Principal amount:</td>
+				<td class="math" id="cur1" style="text-align:right">$</td>
+				<td class="math"><input id="Text1" name="Text1" type="number" class="intext" style="width:140px" value="1000"> <input type="button" value="&times;" style="font-size:medium" onclick="OnClear(0)"></td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>Annual interest rate:</td>
+				<td>&nbsp;</td>
+				<td class="math"><input id="Text2" name="Text2" type="number" min="0" max="100" class="intext" style="width:140px" value="4"> %</td>
+				<td colspan="2">per year</td>
+			</tr>
+			<tr>
+				<td>Period:</td>
+				<td>&nbsp;</td>
+				<td class="math" colspan="3"><input id="Text3" name="Text3" type="number" min="1" max="100" class="intext" style="width:140px" value="10">
+					<select id="Select2" name="Select2" style="font-size:medium">
+						<option>Days</option>
+						<option>Weeks</option>
+						<option>Months</option>
+						<option>Quarters</option>
+						<option selected="selected">Years</option>
+					</select></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td colspan="3">
+					<input onclick="OnCalc()" type="button" value="Calculate" style="font-size:medium; width:120px; padding:5px">
+					<input onclick="OnClear(1)" type="button" value="Clear" style="font-size:medium; width:120px; padding:5px"></td>
+			</tr>
+			<tr>
+				<td>Interest amount:</td>
+				<td class="math" id="cur2" style="text-align:right">$</td>
+				<td class="math"><input id="Text6" name="Text6" type="text" class="outtext" style="width:140px" readonly="readonly"></td>
+				<td class="math">&nbsp;</td>
+				<td class="math">&nbsp;</td>
+			</tr>
+			<tr>
+				<td>Total amount:</td>
+				<td class="math" id="cur3" style="text-align:right">$</td>
+				<td class="math"><input id="Text7" name="Text7" type="text" class="outtext" style="width:140px" readonly="readonly"></td>
+				<td class="math">&nbsp;</td>
+				<td class="math">&nbsp;</td>
+			</tr>
+			</table>
+		</form>
+		<p>&nbsp;</p>
+		<p><a href="simple-interest-calculation.htm">Simple interest calculation &#9658;</a></p>
+		<p>&nbsp;</p>
+		<hr>
+
+		<script>
+			function OnClear(n)
+			{
+				if( n==0 )
+				{
+					document.getElementById("Text1").value = '';
+				}
+				else
+				{
+					document.getElementById("Text1").value = '';
+					document.getElementById("Text2").value = '';
+					document.getElementById("Text3").value = '';
+					document.getElementById("Text6").value = '';
+					document.getElementById("Text7").value = '';
+				}
+			}
+			function OnCurrencyChange()
+			{
+				c_look=['$','&pound;','&euro;','kr','L','t','P','RM','R','Rs','&#8362;','zl',''];
+				i = document.calcform.Select1.selectedIndex;
+				c = c_look[i];
+				document.getElementById("cur1").innerHTML = c;
+				document.getElementById("cur2").innerHTML = c;
+				document.getElementById("cur3").innerHTML = c;
+			}
+			function numberWithCommas(x)
+			{
+			    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			}
+			function OnCalc()
+			{
+				x0 = document.getElementById("Text1").value;
+				rate = document.getElementById("Text2").value;
+				period = document.getElementById("Text3").value;
+				i = document.getElementById("Select2").selectedIndex;
+				ilook = [365,52,12,4,1];
+				rate /= ilook[i];
+				if( x0=='' ) x0='0';
+				x0 = parseFloat(x0);
+				Is = x0*rate*period/100;
+				y = x0+Is;
+				Is = Is.toFixed(2);
+				y  = y.toFixed(2);
+				Is = numberWithCommas(Is);
+				y = numberWithCommas(y);
+				document.getElementById("Text6").value = Is;
+				document.getElementById("Text7").value = y;
+			}
+		</script>
+	<!-- #EndEditable -->
+
+
+
+</body>
+</html>
