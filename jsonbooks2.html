@@ -60,29 +60,36 @@
                    $('#book').append('<p class="paragraphs"> Contains Epub Bubbles: ' + jd.volumeInfo.panelizationSummary.containsEpubBubbles + '</p>');
                    $('#book').append('<p class="paragraphs"> Contains Image Bubbles: ' + jd.volumeInfo.panelizationSummary.containsImageBubbles + '</p>');
                    $('#book').append('<a class="paragraphs" href="' + jd.volumeInfo.imageLinks.smallThumbnail+ '">Small ThumbNail</a>');
+                   <br>
                    $('#book').append('<a class="paragraphs" href="' + jd.volumeInfo.imageLinks.thumbnail+ '">ThumbNail</a>');
+                   <br>
                    $('#book').append('<a class="paragraphs" href="' + jd.volumeInfo.imageLinks.small+ '">Small Image</a>');
+                   <br>
                    $('#book').append('<a class="paragraphs" href="' + jd.volumeInfo.imageLinks.medium+ '">Medium Image</a>');
+                   <br>
                    $('#book').append('<a class="paragraphs" href="' + jd.volumeInfo.imageLinks.large+ '">Large Image</a>');
+                   <br>
                    $('#book').append('<a class="paragraphs" href="' + jd.volumeInfo.imageLinks.extraLarge+ '">Extra Large Image</a>');
-                   $('#book').append('<p class="paragraphs"> Language ' + jd.volumeInfo.language + '</p>');
+                   $('#book').append('<p class="paragraphs"> Language: ' + jd.volumeInfo.language + '</p>');
                    $('#book').append('<a class="paragraphs" href="' + jd.volumeInfo.previewLink+ '">Preview Book</a>');
+                   <br>
                    $('#book').append('<a class="paragraphs" href="' + jd.volumeInfo.infoLink+ '">Book Info</a>');
+                   <br>
                    $('#book').append('<a class="paragraphs" href="' + jd.volumeInfo.canonicalVolumeLink+ '">Canonical Volume</a>');
-                   $('#book').append('<p class="paragraphs"> Layer ID ' + jd.layerInfo.layers.layerId + '</p>');
-                   $('#book').append('<p class="paragraphs"> Volume Annotation Version ' + jd.layerInfo.layers.volumeAnnotationsVersion + '</p>');
-                   $('#book').append('<p class="paragraphs"> Sale Info Country ' + jd.saleInfo.country + '</p>');
-                   $('#book').append('<p class="paragraphs"> Saleability ' + jd.saleInfo.saleability + '</p>');
-                   $('#book').append('<p class="paragraphs"> Ebook ' + jd.saleInfo.isEbook + '</p>');
-                   $('#book').append('<p class="paragraphs"> Access Info Country ' + jd.accessInfo.country + '</p>');
-                   $('#book').append('<p class="paragraphs"> Viewability ' + jd.accessInfo.viewability + '</p>');
-                   $('#book').append('<p class="paragraphs"> Embeddable ' + jd.accessInfo.embeddable + '</p>');
-                   $('#book').append('<p class="paragraphs"> Public Domain ' + jd.accessInfo.publicDomain + '</p>');
-                   $('#book').append('<p class="paragraphs"> Text to Speech ' + jd.accessInfo.textToSpeechPermission + '</p>');
+                   $('#book').append('<p class="paragraphs"> Layer ID: ' + jd.layerInfo.layers.layerId + '</p>');
+                   $('#book').append('<p class="paragraphs"> Volume Annotation Version: ' + jd.layerInfo.layers.volumeAnnotationsVersion + '</p>');
+                   $('#book').append('<p class="paragraphs"> Sale Info Country: ' + jd.saleInfo.country + '</p>');
+                   $('#book').append('<p class="paragraphs"> Saleability: ' + jd.saleInfo.saleability + '</p>');
+                   $('#book').append('<p class="paragraphs"> Ebook: ' + jd.saleInfo.isEbook + '</p>');
+                   $('#book').append('<p class="paragraphs"> Access Info Country: ' + jd.accessInfo.country + '</p>');
+                   $('#book').append('<p class="paragraphs"> Viewability: ' + jd.accessInfo.viewability + '</p>');
+                   $('#book').append('<p class="paragraphs"> Embeddable: ' + jd.accessInfo.embeddable + '</p>');
+                   $('#book').append('<p class="paragraphs"> Public Domain: ' + jd.accessInfo.publicDomain + '</p>');
+                   $('#book').append('<p class="paragraphs"> Text to Speech: ' + jd.accessInfo.textToSpeechPermission + '</p>');
                    $('#book').append('<p class="paragraphs"> epub: ' + jd.accessInfo.epub.isAvailable + '</p>');
                    $('#book').append('<p class="paragraphs"> PDF: ' + jd.accessInfo.pdf.isAvailable + '</p>');
                    $('#book').append('<a class="paragraphs" href="' + jd.accessInfo.webReaderLink + '">WebReaderLink</a>');
-                   $('#book').append('<p class="paragraphs"> Access View Status ' + jd.accessInfo.accessViewStatus + '</p>');
+                   $('#book').append('<p class="paragraphs"> Access View Status: ' + jd.accessInfo.accessViewStatus + '</p>');
                    $('#book').append('<p class="paragraphs"> Quote Sharing Allowed: ' + jd.accessInfo.quoteSharingAllowed + '</p>');
 
                });
