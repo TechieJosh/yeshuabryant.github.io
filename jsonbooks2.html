@@ -59,22 +59,15 @@
                    $('#book').append('<p class="paragraphs"> Content Version: ' + jd.volumeInfo.contentVersion + '</p>');
                    $('#book').append('<p class="paragraphs"> Contains Epub Bubbles: ' + jd.volumeInfo.panelizationSummary.containsEpubBubbles + '</p>');
                    $('#book').append('<p class="paragraphs"> Contains Image Bubbles: ' + jd.volumeInfo.panelizationSummary.containsImageBubbles + '</p>');
-                   $('#book').append('<a class="paragraphs" href="' + jd.volumeInfo.imageLinks.smallThumbnail+ '">Small ThumbNail</a>');
-                   <br>
-                   $('#book').append('<a class="paragraphs" href="' + jd.volumeInfo.imageLinks.thumbnail+ '">ThumbNail</a>');
-                   <br>
-                   $('#book').append('<a class="paragraphs" href="' + jd.volumeInfo.imageLinks.small+ '">Small Image</a>');
-                   <br>
-                   $('#book').append('<a class="paragraphs" href="' + jd.volumeInfo.imageLinks.medium+ '">Medium Image</a>');
-                   <br>
-                   $('#book').append('<a class="paragraphs" href="' + jd.volumeInfo.imageLinks.large+ '">Large Image</a>');
-                   <br>
+                   $('#book').append('<a class="paragraphs" href="' + jd.volumeInfo.imageLinks.smallThumbnail+ '">Small ThumbNail </a>');
+                   $('#book').append('<a class="paragraphs" href="' + jd.volumeInfo.imageLinks.thumbnail+ '">Thumbnail  </a>');
+                   $('#book').append('<a class="paragraphs" href="' + jd.volumeInfo.imageLinks.small+ '">Small Image  </a>');
+                   $('#book').append('<a class="paragraphs" href="' + jd.volumeInfo.imageLinks.medium+ '">Medium Image  </a>');
+                   $('#book').append('<a class="paragraphs" href="' + jd.volumeInfo.imageLinks.large+ '">Large Image  </a>');
                    $('#book').append('<a class="paragraphs" href="' + jd.volumeInfo.imageLinks.extraLarge+ '">Extra Large Image</a>');
                    $('#book').append('<p class="paragraphs"> Language: ' + jd.volumeInfo.language + '</p>');
                    $('#book').append('<a class="paragraphs" href="' + jd.volumeInfo.previewLink+ '">Preview Book</a>');
-                   <br>
                    $('#book').append('<a class="paragraphs" href="' + jd.volumeInfo.infoLink+ '">Book Info</a>');
-                   <br>
                    $('#book').append('<a class="paragraphs" href="' + jd.volumeInfo.canonicalVolumeLink+ '">Canonical Volume</a>');
                    $('#book').append('<p class="paragraphs"> Layer ID: ' + jd.layerInfo.layers.layerId + '</p>');
                    $('#book').append('<p class="paragraphs"> Volume Annotation Version: ' + jd.layerInfo.layers.volumeAnnotationsVersion + '</p>');
