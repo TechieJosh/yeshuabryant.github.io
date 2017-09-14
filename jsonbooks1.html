@@ -1,0 +1,50 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+<title>JSON Books 1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <style>
+        body,h1,h2,h3,h4,h5,h6 {font-family: "Merriweather", sans-serif}
+        h1,button {font-family: "Open+Sans", sans-serif}
+
+        .bookpadding{padding-left: 10px;}
+        .title{color:mediumseagreen; font-size: 30px; line-height: 110%; clear: left; border-top-style: solid;}
+        .subtitle{color:seagreen; font-size: 20px; border-bottom-style: solid;}
+        .image{float: left; margin: 0px 10px 40px 10px; }
+        .headers{}
+        .paragraphs{line-height: 110%;}
+    </style>
+
+    <script type = "text/javascript"
+         src = "http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      <script type = "text/javascript" language = "javascript">
+     $(document).ready(function() {
+
+               $.getJSON('http://it-ebooks-api.info/v1/search/modern%20web', function(jd) {
+
+                   var bookHTML="";
+
+                    for (i in jd.Books)
+                        {
+                              bookHTML+='<br>' + '<p class="title">' + jd.Books[i].Title + '</p>' + '<p class="subtitle">' + jd.Books[i].SubTitle + '</p>' + '<p class="paragraphs"> ID: ' + jd.Books[i].ID + '</p>' +  "<img class='image' src=" + jd.Books[i].Image + '>' + '<p class="paragraphs"> Desciption: ' + jd.Books[i].Description + '</p>';
+                        }
+                    $('#Book').html(bookHTML);
+                 });
+            });
+
+  </script>
+
+</head>
+
+<body>
+
+<h2>JSON Books 1</h2>
+	<a class="paragraphs" href="milestone1.html">Return to Milestone 1 files</a>
+    <div id = "Book" class="bookpadding"></div>
+</body>
+</html>
