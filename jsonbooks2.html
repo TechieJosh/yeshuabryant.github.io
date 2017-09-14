@@ -1,0 +1,56 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+    <title>JSON Books 2</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <style>
+        body,h1,h2,h3,h4,h5,h6 {font-family: "Merriweather", sans-serif}
+        h1,button {font-family: "Open+Sans", sans-serif}
+
+        .bookpadding{padding-left: 10px;}
+        .title{color:mediumseagreen; font-size: 30px; line-height: 110%; clear: left; border-top-style: solid;}
+        .subtitle{color:seagreen; font-size: 20px; border-bottom-style: solid;}
+        .image{float: left; margin: 0px 10px 40px 10px; }
+        .headers{}
+        .paragraphs{line-height: 110%;}
+    </style>
+
+    <script type = "text/javascript"
+         src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      <script type = "text/javascript" language = "javascript">
+     $(document).ready(function() {
+
+               $.getJSON('https://it-ebooks-api.info/v1/book/2563063616', function(jd) {
+                  $('#book').html('<p class="title">' + jd.Title + '</p>');
+                  $('#book').append('<p class="subtitle">' + jd.SubTitle+ '</p>');
+                   $('#book').append('<img class="image" src="' + jd.Image+ '">');
+                  $('#book').append('<p>' + jd.Description+ '</p>');
+                    $('#book').append('<p class="paragraphs"> Author: ' + jd.Author+ '</p>');
+                    $('#book').append('<p class="paragraphs"> ISBN: ' + jd.ISBN+ '</p>');
+                    $('#book').append('<p class="paragraphs"> Year: ' + jd.Year+ '</p>');
+                    $('#book').append('<p class="paragraphs"> Page: ' + jd.Page+ '</p>');
+                    $('#book').append('<p class="paragraphs"> Publisher: ' + jd.Publisher+ '</p>');
+                    $('#book').append('<a class="paragraphs" href="' + jd.Download+ '">Download</a>');
+               });
+
+         });
+
+  </script>
+
+</head>
+
+<body>
+    <h1>JSON Books 2</h1>
+		<a class="paragraphs" href="milestone1.html">Return to Milestone 1 files</a>
+      <div id = "book" class="bookpadding"></div>
+</body>
+
+</html>
