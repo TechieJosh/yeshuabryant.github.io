@@ -1,57 +1,49 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+	<meta charset="utf-8">
+	<title>JSON Books 3</title>
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+	<link href="https://www.w3schools.com/lib/w3.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+	<style>
+	       body,h1,h2,h3,h4,h5,h6 {font-family: "Merriweather", serif}
+	       h1,button {font-family: "Open+Sans", sans-serif}
 
-    <title>JSON Books 3</title>
+	       .bookpadding{padding-left: 10px;}
+	       .title{color:mediumseagreen; font-size: 30px; line-height: 110%; clear: left; border-top-style: solid;}
+	       .subtitle{color:seagreen; font-size: 20px; border-bottom-style: solid;}
+	       .image{float: left; margin: 0px 10px 40px 10px; }
+	       .headers{}
+	       .paragraphs{line-height: 110%;}
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript">
+	</script>
+	<script language="javascript" type="text/javascript">
+	    $(document).ready(function() {
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-    <style>
-        body,h1,h2,h3,h4,h5,h6 {font-family: "Merriweather", serif}
-        h1,button {font-family: "Open+Sans", sans-serif}
+	              $.getJSON('https://www.googleapis.com/books/v1/volumes?q=modern%20web', function(jd) {
 
-        .bookpadding{padding-left: 10px;}
-        .title{color:mediumseagreen; font-size: 30px; line-height: 110%; clear: left; border-top-style: solid;}
-        .subtitle{color:seagreen; font-size: 20px; border-bottom-style: solid;}
-        .image{float: left; margin: 0px 10px 40px 10px; }
-        .headers{}
-        .paragraphs{line-height: 110%;}
-    </style>
+	                  var itemsHTML="";
 
-    <script type = "text/javascript"
-         src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-      <script type = "text/javascript" language = "javascript">
-     $(document).ready(function() {
+	                   for (i in jd.items)
+	                       {
+	                             itemsHTML+='<br>' + '<p class="title">'+ jd.items[i].volumeInfo.title + '<\/p>' + '<p class="subtitle">' + jd.items[i].volumeInfo.subtitle + '<\/p>' + '<img class="image" src="' + jd.items[i].volumeInfo.imageLinks.thumbnail + '">' + '<p class="paragraphs"> Description: ' + jd.items[i].volumeInfo.description + '<\/p>' + '<p class="paragraphs"> Authors: ' + jd.items[i].volumeInfo.authors + '<\/p>' + '<p class="paragraphs"> Published Date: ' + jd.items[i].volumeInfo.publishedDate + '<\/p>' + '<p class="paragraphs"> Page Count: ' + jd.items[i].volumeInfo.pageCount + '<\/p>' + '<a class="paragraphs" href="' + jd.items[i].selfLink + '">Self Link<\/a>' + '<p class="subtitle"> Other Information' + '<\/p>' + '<p class="paragraphs"> Kind: ' + jd.items[i].kind + '<\/p>'+ '<p class="paragraphs"> ID: ' + jd.items[i].id + '<\/p>'+ '<p class="paragraphs"> ETAG: ' + jd.items[i].etag + '<\/p>' + '<p class="paragraphs"> Industry IdentType1: ' + jd.items[i].volumeInfo.industryIdentifiers[0].type + '<\/p>' + '<p class="paragraphs"> IndustryIdent1: ' + jd.items[i].volumeInfo.industryIdentifiers[0].identifier + '<\/p>'
+	                             + '<p class="paragraphs"> Industry IdentType2: ' + jd.items[i].volumeInfo.industryIdentifiers[1].type + '<\/p>' + '<p class="paragraphs"> IndustryIdent2: ' + jd.items[i].volumeInfo.industryIdentifiers[1].identifier + '<\/p>' + '<p class="paragraphs"> ReadingModeText: ' + jd.items[i].volumeInfo.readingModes.text + '<\/p>' + '<p class="paragraphs"> ReadingModeImage: ' + jd.items[i].volumeInfo.readingModes.image + '<\/p>' + '<p class="paragraphs"> Print Type: ' + jd.items[i].volumeInfo.printType + '<\/p>' + '<p class="paragraphs"> Average Rating: ' + jd.items[i].volumeInfo.averageRating + '<\/p>'
+	                           + '<p class="paragraphs"> Ratings Count: ' + jd.items[i].volumeInfo.ratingsCount + '<\/p>' + '<p class="paragraphs"> Maturity Rating: ' + jd.items[i].volumeInfo.maturityRating + '<\/p>' + '<p class="paragraphs"> Allow Anon Logging: ' + jd.items[i].volumeInfo.allowAnonLogging + '<\/p>' + '<p class="paragraphs"> Content Version: ' + jd.items[i].volumeInfo.contentVersion + '<\/p>' + '<a class="paragraphs" href="' + jd.items[i].volumeInfo.imageLinks.smallThumbnail + '">Small Thumbnail <br> <\/a>' + '<a class="paragraphs" href="' + jd.items[i].volumeInfo.imageLinks.thumbnail + '">Thumbnail<\/a>' + '<p class="paragraphs"> Language ' + jd.items[i].volumeInfo.language + '<\/p>' + '<a class="paragraphs" href="' + jd.items[i].volumeInfo.previewLink + '">Preview Link <br> <\/a>' + '<a class="paragraphs" href="' + jd.items[i].volumeInfo.infoLink + '">Info Link <br> <\/a>' + '<a class="paragraphs" href="' + jd.items[i].volumeInfo.canonicalVolumeLink + '">Canonical Volume Link<\/a>' + '<p class="paragraphs"> Sales Info Country: ' + jd.items[i].saleInfo.country + '<\/p>'
+	                           + '<p class="paragraphs"> Sales Info Saleability: ' + jd.items[i].saleInfo.saleability + '<\/p>' + '<p class="paragraphs"> Sales Info Ebook?: ' + jd.items[i].saleInfo.isEbook + '<\/p>'  + '<p class="paragraphs"> Access Info Country: ' + jd.items[i].accessInfo.country + '<\/p>' + '<p class="paragraphs"> Access Info Viewability: ' + jd.items[i].accessInfo.viewability + '<\/p>' + '<p class="paragraphs"> Access Info Embeddable: ' + jd.items[i].accessInfo.embeddable + '<\/p>' + '<p class="paragraphs"> Access Info Publid Domain: ' + jd.items[i].accessInfo.publicDomain + '<\/p>' + '<p class="paragraphs"> Access Info Text to Speech: ' + jd.items[i].accessInfo.textToSpeechPermission + '<\/p>' + '<p class="paragraphs"> Access Info EPUB: ' + jd.items[i].accessInfo.epub.isAvailable + '<\/p>' + '<p class="paragraphs"> Access Info PDF: ' + jd.items[i].accessInfo.pdf.isAvailable + '<\/p>' + '<a class="paragraphs" href="' + jd.items[i].accessInfo.webReaderLink + '">Web Reader Link<\/a>' + '<p class="paragraphs"> Access Info Access View Status: ' + jd.items[i].accessInfo.accessViewStatus + '<\/p>' +'<p class="paragraphs"> Access Info Quote Sharing Allowed: ' + jd.items[i].accessInfo.quoteSharingAllowed + '<\/p>';
 
-               $.getJSON('https://www.googleapis.com/books/v1/volumes?q=modern%20web', function(jd) {
+	                       }
+	                   $('#items').html(itemsHTML);
+	                });
+	           });
 
-                   var itemsHTML="";
-
-                    for (i in jd.items)
-                        {
-                              itemsHTML+='<br>' + '<p class="title">'+ jd.items[i].volumeInfo.title + '</p>' + '<p class="subtitle">' + jd.items[i].volumeInfo.subtitle + '</p>' + '<img class="image" src="' + jd.items[i].volumeInfo.imageLinks.thumbnail + '">' + '<p class="paragraphs"> Description: ' + jd.items[i].volumeInfo.description + '</p>' + '<p class="paragraphs"> Authors: ' + jd.items[i].volumeInfo.authors + '</p>' + '<p class="paragraphs"> Published Date: ' + jd.items[i].volumeInfo.publishedDate + '</p>' + '<p class="paragraphs"> Page Count: ' + jd.items[i].volumeInfo.pageCount + '</p>' + '<a class="paragraphs" href="' + jd.items[i].selfLink + '">Self Link</a>' + '<p class="subtitle"> Other Information' + '</p>' + '<p class="paragraphs"> Kind: ' + jd.items[i].kind + '</p>'+ '<p class="paragraphs"> ID: ' + jd.items[i].id + '</p>'+ '<p class="paragraphs"> ETAG: ' + jd.items[i].etag + '</p>' + '<p class="paragraphs"> Industry IdentType1: ' + jd.items[i].volumeInfo.industryIdentifiers[0].type + '</p>' + '<p class="paragraphs"> IndustryIdent1: ' + jd.items[i].volumeInfo.industryIdentifiers[0].identifier + '</p>'
-                              + '<p class="paragraphs"> Industry IdentType2: ' + jd.items[i].volumeInfo.industryIdentifiers[1].type + '</p>' + '<p class="paragraphs"> IndustryIdent2: ' + jd.items[i].volumeInfo.industryIdentifiers[1].identifier + '</p>' + '<p class="paragraphs"> ReadingModeText: ' + jd.items[i].volumeInfo.readingModes.text + '</p>' + '<p class="paragraphs"> ReadingModeImage: ' + jd.items[i].volumeInfo.readingModes.image + '</p>' + '<p class="paragraphs"> Print Type: ' + jd.items[i].volumeInfo.printType + '</p>' + '<p class="paragraphs"> Average Rating: ' + jd.items[i].volumeInfo.averageRating + '</p>'
-                            + '<p class="paragraphs"> Ratings Count: ' + jd.items[i].volumeInfo.ratingsCount + '</p>' + '<p class="paragraphs"> Maturity Rating: ' + jd.items[i].volumeInfo.maturityRating + '</p>' + '<p class="paragraphs"> Allow Anon Logging: ' + jd.items[i].volumeInfo.allowAnonLogging + '</p>' + '<p class="paragraphs"> Content Version: ' + jd.items[i].volumeInfo.contentVersion + '</p>' + '<a class="paragraphs" href="' + jd.items[i].volumeInfo.imageLinks.smallThumbnail + '">Small Thumbnail <br> </a>' + '<a class="paragraphs" href="' + jd.items[i].volumeInfo.imageLinks.thumbnail + '">Thumbnail</a>' + '<p class="paragraphs"> Language ' + jd.items[i].volumeInfo.language + '</p>' + '<a class="paragraphs" href="' + jd.items[i].volumeInfo.previewLink + '">Preview Link <br> </a>' + '<a class="paragraphs" href="' + jd.items[i].volumeInfo.infoLink + '">Info Link <br> </a>' + '<a class="paragraphs" href="' + jd.items[i].volumeInfo.canonicalVolumeLink + '">Canonical Volume Link</a>' + '<p class="paragraphs"> Sales Info Country: ' + jd.items[i].saleInfo.country + '</p>'
-                            + '<p class="paragraphs"> Sales Info Saleability: ' + jd.items[i].saleInfo.saleability + '</p>' + '<p class="paragraphs"> Sales Info Ebook?: ' + jd.items[i].saleInfo.isEbook + '</p>'  + '<p class="paragraphs"> Access Info Country: ' + jd.items[i].accessInfo.country + '</p>' + '<p class="paragraphs"> Access Info Viewability: ' + jd.items[i].accessInfo.viewability + '</p>' + '<p class="paragraphs"> Access Info Embeddable: ' + jd.items[i].accessInfo.embeddable + '</p>' + '<p class="paragraphs"> Access Info Publid Domain: ' + jd.items[i].accessInfo.publicDomain + '</p>' + '<p class="paragraphs"> Access Info Text to Speech: ' + jd.items[i].accessInfo.textToSpeechPermission + '</p>' + '<p class="paragraphs"> Access Info EPUB: ' + jd.items[i].accessInfo.epub.isAvailable + '</p>' + '<p class="paragraphs"> Access Info PDF: ' + jd.items[i].accessInfo.pdf.isAvailable + '</p>' + '<a class="paragraphs" href="' + jd.items[i].accessInfo.webReaderLink + '">Web Reader Link</a>' + '<p class="paragraphs"> Access Info Access View Status: ' + jd.items[i].accessInfo.accessViewStatus + '</p>' +'<p class="paragraphs"> Access Info Quote Sharing Allowed: ' + jd.items[i].accessInfo.quoteSharingAllowed + '</p>';
-
-                        }
-                    $('#items').html(itemsHTML);
-                 });
-            });
-
-  </script>
-
+	</script>
 </head>
-
 <body>
-  <h2>JSON Books 3</h2>
-  <a class="paragraphs" href="milestone1.html">Return to Milestone 1 files</a>
-    <div id = "items"></div>
+	<h2>JSON Books 3</h2><a class="paragraphs" href="milestone1.html">Return to Milestone 1 files</a>
+	<div id="items"></div>
 </body>
-
 </html>
