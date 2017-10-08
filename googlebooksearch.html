@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<title>Google Book Search</title>
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<style>
+
+        a {
+            color: #A7A6A6;
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: #A7A6A6;
+        }
+
+        medium,
+        a {
+            color: #3369E8;
+        }
+
+        medium,
+        a:visited {
+            color: #3369E8;
+        }
+
+        #large {
+            display: block;
+            color: #3369E8;
+            font-family: Pure Futura, sans-serif;
+            font-size: 46px;
+            text-align: left;
+            margin-left: 20px;
+            padding-left: 10px;
+            padding-right: 20px;
+        }
+
+        #medium {
+            color: #3369E8;
+            font-family: Pure Futura, sans-serif;
+            font-size: 20px;
+            float: right;
+            margin-top: -30px;
+            padding-right: 30px;
+        }
+
+        .logo {
+            margin-top: 30px;
+            margin-bottom: -20px;
+            padding-left: 20px;
+        }
+
+        #pages {
+            text-align: center;
+        }
+
+        .bookdiv {
+          margin-top: 20px;
+          margin-left: 20px;
+        }
+
+        h3.title {
+            display: block;
+            float: right;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+	<div id="searchBar">
+		<h1>Search</h1>
+		<form>
+				<input type="text" id="largeBox"  class="term" name="q" method="get" />
+				<input type="submit" id="mediumButton" value="Search" />
+		</form>
+	</div>
+	<h2 style="margin-left: 40px; margin-top: 20px;">Total Books Found: <span id="total"></span>
+	  <div id="results" style="display: flex; flex-wrap: wrap"></div>
+
+<script>
+  $(function() {
+    $("#mediumButton").click(function(event) {
+        event.preventDefault();
+        var parameters = "?q="+$(".term").val()+"&maxResults=40&startIndex=0";
+        var servicePoint = "https://www.googleapis.com/books/v1/volumes/"+parameters;
+
+        $.getJSON(servicePoint, function(json) {
+          console.log(json);
+          var total=json.totalItems;
+          $("#total").text(total);
+
+          var resultHTML="";
+          for (i in json.items) {
+            var booktitle=json.items[i].volumeInfo.title;
+            var bookid=json.items[i].id;
+            var cover = "";
+            if (json.items[i].volumeInfo.imageLinks != null)
+              cover=json.items[i].volumeInfo.imageLinks.smallThumbnail;
+            var page1 = servicePoint;
+            var page2 = "'https://www.googleapis.com/books/v1/volumes/'"+$('.term').val()+" &maxResults=40&startIndex=41'";
+            var page3 = "'https://www.googleapis.com/books/v1/volumes/'"+$('.term').val()+" &maxResults=40&startIndex=81'";
+
+           resultHTML+="<br><div class='bookdiv'>";
+           resultHTML+="<img src='"+cover+"' style='float: left; margin-right: 15px;' />";
+           resultHTML+="<a href='googlebookdetails.html?id="+bookid+"'>"+booktitle+"</a>";
+           resultHTML+="<br></div>";
+       }
+
+       $("#results").html(resultHTML);
+
+     })
+  })
+});
+</script>
+</body>
+</html>
