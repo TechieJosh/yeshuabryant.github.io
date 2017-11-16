@@ -1,304 +1,301 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="utf-8">
-    <title>Milestone 4</title>
-    <link rel="stylesheet" type="text/css" href="/normalize.css">
-    <link rel="stylesheet" type="text/css" href="/style.css">
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.0/mustache.min.js"></script>
-    <script id="booklisttemplate" type="text/template">
-		{{#items}}
-		<div class='booklistitem' id="{{id}}">
-			<div class="booklistitemheader" data-bookid="{{id}}">
-                <img class='thumbnail' src='{{volumeInfo.imageLinks.smallThumbnail}}'/>
-                <h2 class='title' style='text-align: center'>{{volumeInfo.title}}</h2>
-            </div>
-			<div class='bookdetails' style='display:none'></div>
-		</div>
-		{{/items}}
+	<meta charset="utf-8">
+	<title>Milestone 4</title>
+	<link href="/normalize.css" rel="stylesheet" type="text/css">
+	<link href="/style.css" rel="stylesheet" type="text/css">
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js" type="text/javascript">
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.0/mustache.min.js">
+	</script>
+	<script id="booklisttemplate" type="text/template">
+	       {{#items}}
+	       <div class='booklistitem' id="{{id}}">
+	           <div class="booklistitemheader" data-bookid="{{id}}">
+	               <img class='thumbnail' src='{{volumeInfo.imageLinks.smallThumbnail}}'/>
+	               <h2 class='title' style='text-align: center'>{{volumeInfo.title}}</h2>
+	           </div>
+	           <div class='bookdetails' style='display:none'></div>
+	       </div>
+	       {{/items}}
 	</script>
 	<script id="bookdetailstemplate" type="text/template">
-		<div class='book'>
-			<h3 style='text-align: center'>{{volumeInfo.subtitle}}</h3>
-			<div>
-                <p><b>Subtitle: </b>{{volumeInfo.subtitle}}</p>
-                <p><b>Authors: </b>{{volumeInfo.authors}}</p>
-                <p><b>Page Count: </b>{{volumeInfo.pageCount}}</p>
-                <p><b>Average Rating: </b>{{volumeInfo.averageRating}}</p>
-                <p><b>Ratings Count: </b>{{volumeInfo.ratingsCount}}</p>
-                <p><b>Language: </b>{{volumeInfo.language}}</p>
-                <p><b>Amount: </b>{{saleInfo.listPrice.amount}}</p>
-                <p><b>Retail Amount: </b>{{saleInfo.retailPrice.amount}}</p>
-                <p><b>Publish Date: </b>{{volumeInfo.publishedDate}}</p>
-                <p><b>Publisher: </b>{{volumeInfo.publisher}}</p>
-			    <h4 style='text-align: center'>Description</h4>
-				<div>{{volumeInfo.description}}</div>
-			</div>
-			<div style="clear:both"></div>
-		</div>
+	       <div class='book'>
+	           <h3 style='text-align: center'>{{volumeInfo.subtitle}}</h3>
+	           <div>
+	               <p><b>Subtitle: </b>{{volumeInfo.subtitle}}</p>
+	               <p><b>Authors: </b>{{volumeInfo.authors}}</p>
+	               <p><b>Page Count: </b>{{volumeInfo.pageCount}}</p>
+	               <p><b>Average Rating: </b>{{volumeInfo.averageRating}}</p>
+	               <p><b>Ratings Count: </b>{{volumeInfo.ratingsCount}}</p>
+	               <p><b>Language: </b>{{volumeInfo.language}}</p>
+	               <p><b>Amount: </b>{{saleInfo.listPrice.amount}}</p>
+	               <p><b>Retail Amount: </b>{{saleInfo.retailPrice.amount}}</p>
+	               <p><b>Publish Date: </b>{{volumeInfo.publishedDate}}</p>
+	               <p><b>Publisher: </b>{{volumeInfo.publisher}}</p>
+	               <h4 style='text-align: center'>Description</h4>
+	               <div>{{volumeInfo.description}}</div>
+	           </div>
+	           <div style="clear:both"></div>
+	       </div>
 	</script>
-    <script type="text/javascript">
-     $(document).ready(function ()
-     {
-         //need to chang the paging system. $("#wrapper").empty(); no longer needed
-         $("#search_button").click(function ()
-         {
-            $("#booklist").html("");
-            var startIndex = "0";
-            var search = $("#search_val").val();
-            var parameter = "?q=" + search + "&startIndex=" + startIndex + "&maxResults=10";
-            var url = "https://www.googleapis.com/books/v1/volumes/" + parameter;
-            searchBook(url);
-        });
-        $("#0").click(function()
-        {
-            $("#booklist").html("");
-            var startIndex = "0";
-            var search = $("#search_val").val();
-            var parameter = "?q=" + search + "&startIndex=" + startIndex + "&maxResults=10";
-            var url = "https://www.googleapis.com/books/v1/volumes/" + parameter;
-            searchBook(url);
-        });
-
-        $("#1").click(function()
-        {
-            $("#booklist").html("");
-            var startIndex = "10";
-            var search = $("#search_val").val();
-            var parameter = "?q=" + search + "&startIndex=" + startIndex + "&maxResults=10";
-            var url = "https://www.googleapis.com/books/v1/volumes/" + parameter;
-            searchBook(url);
-        });
-
-        $("#2").click(function()
-        {
-            $("#booklist").html("");
-            var startIndex = "20";
-            var search = $("#search_val").val();
-            var parameter = "?q=" + search + "&startIndex=" + startIndex + "&maxResults=10";
-            var url = "https://www.googleapis.com/books/v1/volumes/" + parameter;
-            searchBook(url);
-        });
-
-        $("#3").click(function()
-        {
-            $("#booklist").html("");
-            var startIndex = "30";
-            var search = $("#search_val").val();
-            var parameter = "?q=" + search + "&startIndex=" + startIndex + "&maxResults=10";
-            var url = "https://www.googleapis.com/books/v1/volumes/" + parameter;
-            searchBook(url);
-        });
-
-        $("#4").click(function()
-        {
-            $("#booklist").html("");
-            var startIndex = "40";
-            var search = $("#search_val").val();
-            var parameter = "?q=" + search + "&startIndex=" + startIndex + "&maxResults=10";
-            var url = "https://www.googleapis.com/books/v1/volumes/" + parameter;
-            searchBook(url);
-        });
-
-        $("#bookshelf").click(function()
-        {
-            //$("#wrapper").empty();
-            var bookshelf = "<h2>My Bookshelf</h2>"
-            $("#booklist").append(bookshelf);
-            var url = "https://www.googleapis.com/books/v1/users/102839963173038418310/bookshelves/0/volumes";
-            searchBook(url);
-        });
-     });
-
-     function searchBook(servicePoint)
-     {
-
-         $.getJSON(servicePoint, function (jsonData)
-         {
-            //$("#booklist").html("");
-			var template = $('#booklisttemplate').html();
-			var html = Mustache.render(template, jsonData);
-            $("#booklist").append(html);
-			//$("#booklist").html(html);
-            //changed click event from .booklistitemheader to .booklistitem
-             $(".booklistitemheader").on('click', function ()
-			 {
-				div=$(this).next(); // get the book details div
-				getBookDetails($(this).attr("data-bookid"), div);
-			 });
-         });
-     }
-
-     function getBookDetails(bookid, div)
-     {
-
-		 $.getJSON("https://www.googleapis.com/books/v1/volumes/" + bookid, function (jsonData)
-         {
-			var template = $('#bookdetailstemplate').html();
-			var html = Mustache.render(template, jsonData);
-			$(div).html(html);
-			$(div).slideToggle();
-         });
-     }
-</script>
-
-<script>
-$(function(){
-	$("#grid").click(function (){
-		$(".booklistitem").css("width", "46%").css("flex-direction", "row");
-		$("#booklist").attr("layout","Grid");
-	});
-
-	$("#list").click(function (){
-		$(".booklistitem").css("width", "100%").css("flex-direction", "column");
-		$("#booklist").attr("layout","List");
-	});
-});
-</script>
-
-    <style type="text/css">
-
-        #header {
-            background: #3CB371;
-            color: #fff;
-            padding: 1px 5%;
-            box-shadow: 0 1px 3px #555;
-            margin: auto;
-            text-align: center;
-        }
-
-        #search {
-            padding: 1em;
-            width: 80%;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        #search input {
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        #maincontent {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        #booklist {
-            width: 80%;
-            padding: 1em;
-            margin-bottom: 3em;
-            margin: 0 auto;
-            height: 100%;
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .button {
-            -webkit-border-radius: 2px;
-            -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-            -webkit-user-select: none;
-            background: -webkit-linear-gradient(#fafafa, #f4f4f4 40%, #e5e5e5);
-            border: 1px solid #aaa;
-            color: #444;
-            font-size: inherit;
-            margin-bottom: 0px;
-            min-width: 4em;
-            padding: 3px 12px 3px 12px;
-            font-family: sans-serif;
-            text-decoration: none;
-        }
-
-        .button:hover {
-            -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
-            background: #ebebeb -webkit-linear-gradient(#fefefe, #f8f8f8 40%, #e9e9e9);
-            border-color: #999;
-            color: #222;
-        }
-
-        .button:active {
-            -webkit-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.2);
-            background: #ebebeb -webkit-linear-gradient(#f4f4f4, #efefef 40%, #dcdcdc);
-            color: #333;
-        }
-
-        #pages {
-            padding: 1em;
-            width: 80%;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        #pages ul li {
-            display: inline;
-            list-style-type: none;
-            padding-right: 20px;
-        }
-
-        #layout {
-            padding: 1em;
-            width: 80%;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        #layout ul li {
-            display: inline;
-            list-style-type: none;
-            padding-right: 20px;
-        }
-        /*added these css items for testing*/
-        .booklistitem
+	<script type="text/javascript">
+	    $(document).ready(function ()
 	    {
-            width: 100%;
-		    border: thin solid gray;
-	    	margin:1em;
-            flex-direction: column;
-	    }
-    	.booklistitemheader
+	        //need to chang the paging system. $("#wrapper").empty(); no longer needed
+	        $("#search_button").click(function ()
+	        {
+	           $("#booklist").html("");
+	           var startIndex = "0";
+	           var search = $("#search_val").val();
+	           var parameter = "?q=" + search + "&startIndex=" + startIndex + "&maxResults=10";
+	           var url = "https://www.googleapis.com/books/v1/volumes/" + parameter;
+	           searchBook(url);
+	       });
+	       $("#0").click(function()
+	       {
+	           $("#booklist").html("");
+	           var startIndex = "0";
+	           var search = $("#search_val").val();
+	           var parameter = "?q=" + search + "&startIndex=" + startIndex + "&maxResults=10";
+	           var url = "https://www.googleapis.com/books/v1/volumes/" + parameter;
+	           searchBook(url);
+	       });
+
+	       $("#1").click(function()
+	       {
+	           $("#booklist").html("");
+	           var startIndex = "10";
+	           var search = $("#search_val").val();
+	           var parameter = "?q=" + search + "&startIndex=" + startIndex + "&maxResults=10";
+	           var url = "https://www.googleapis.com/books/v1/volumes/" + parameter;
+	           searchBook(url);
+	       });
+
+	       $("#2").click(function()
+	       {
+	           $("#booklist").html("");
+	           var startIndex = "20";
+	           var search = $("#search_val").val();
+	           var parameter = "?q=" + search + "&startIndex=" + startIndex + "&maxResults=10";
+	           var url = "https://www.googleapis.com/books/v1/volumes/" + parameter;
+	           searchBook(url);
+	       });
+
+	       $("#3").click(function()
+	       {
+	           $("#booklist").html("");
+	           var startIndex = "30";
+	           var search = $("#search_val").val();
+	           var parameter = "?q=" + search + "&startIndex=" + startIndex + "&maxResults=10";
+	           var url = "https://www.googleapis.com/books/v1/volumes/" + parameter;
+	           searchBook(url);
+	       });
+
+	       $("#4").click(function()
+	       {
+	           $("#booklist").html("");
+	           var startIndex = "40";
+	           var search = $("#search_val").val();
+	           var parameter = "?q=" + search + "&startIndex=" + startIndex + "&maxResults=10";
+	           var url = "https://www.googleapis.com/books/v1/volumes/" + parameter;
+	           searchBook(url);
+	       });
+
+	       $("#bookshelf").click(function()
+	       {
+	           //$("#wrapper").empty();
+	           var bookshelf = "<h2>My Bookshelf<\/h2>"
+	           $("#booklist").append(bookshelf);
+	           var url = "https://www.googleapis.com/books/v1/users/102839963173038418310/bookshelves/0/volumes";
+	           searchBook(url);
+	       });
+	    });
+
+	    function searchBook(servicePoint)
 	    {
-		    cursor: pointer;
-            display: flex;
-            flex-wrap: wrap;
+
+	        $.getJSON(servicePoint, function (jsonData)
+	        {
+	           //$("#booklist").html("");
+	           var template = $('#booklisttemplate').html();
+	           var html = Mustache.render(template, jsonData);
+	           $("#booklist").append(html);
+	           //$("#booklist").html(html);
+	           //changed click event from .booklistitemheader to .booklistitem
+	            $(".booklistitemheader").on('click', function ()
+	            {
+	               div=$(this).next(); // get the book details div
+	               getBookDetails($(this).attr("data-bookid"), div);
+	            });
+	        });
 	    }
-	    .booklistitemheader:hover
-    	{
-            background-color: #e6e6e6;
-        }
-        .title {
-            width: 79%;
-        }
-    </style>
+
+	    function getBookDetails(bookid, div)
+	    {
+
+	        $.getJSON("https://www.googleapis.com/books/v1/volumes/" + bookid, function (jsonData)
+	        {
+	           var template = $('#bookdetailstemplate').html();
+	           var html = Mustache.render(template, jsonData);
+	           $(div).html(html);
+	           $(div).slideToggle();
+	        });
+	    }
+	</script>
+	<script>
+	$(function(){
+	   $("#grid").click(function (){
+	       $(".booklistitem").css("width", "46%").css("flex-direction", "row");
+	       $("#booklist").attr("layout","Grid");
+	   });
+
+	   $("#list").click(function (){
+	       $(".booklistitem").css("width", "100%").css("flex-direction", "column");
+	       $("#booklist").attr("layout","List");
+	   });
+	});
+	</script>
+	<style type="text/css">
+
+	       #header {
+	           background: #3CB371;
+	           color: #fff;
+	           padding: 1px 5%;
+	           box-shadow: 0 1px 3px #555;
+	           margin: auto;
+	           text-align: center;
+	       }
+
+	       #search {
+	           padding: 1em;
+	           width: 80%;
+	           margin: 0 auto;
+	           text-align: center;
+	       }
+
+	       #search input {
+	           margin: 0 auto;
+	           text-align: center;
+	       }
+
+	       #maincontent {
+	           display: flex;
+	           flex-wrap: wrap;
+	       }
+
+	       #booklist {
+	           width: 80%;
+	           padding: 1em;
+	           margin-bottom: 3em;
+	           margin: 0 auto;
+	           height: 100%;
+	           display: flex;
+	           flex-wrap: wrap;
+	       }
+
+	       .button {
+	           -webkit-border-radius: 2px;
+	           -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+	           -webkit-user-select: none;
+	           background: -webkit-linear-gradient(#fafafa, #f4f4f4 40%, #e5e5e5);
+	           border: 1px solid #aaa;
+	           color: #444;
+	           font-size: inherit;
+	           margin-bottom: 0px;
+	           min-width: 4em;
+	           padding: 3px 12px 3px 12px;
+	           font-family: sans-serif;
+	           text-decoration: none;
+	       }
+
+	       .button:hover {
+	           -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+	           background: #ebebeb -webkit-linear-gradient(#fefefe, #f8f8f8 40%, #e9e9e9);
+	           border-color: #999;
+	           color: #222;
+	       }
+
+	       .button:active {
+	           -webkit-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.2);
+	           background: #ebebeb -webkit-linear-gradient(#f4f4f4, #efefef 40%, #dcdcdc);
+	           color: #333;
+	       }
+
+	       #pages {
+	           padding: 1em;
+	           width: 80%;
+	           margin: 0 auto;
+	           text-align: center;
+	       }
+
+	       #pages ul li {
+	           display: inline;
+	           list-style-type: none;
+	           padding-right: 20px;
+	       }
+
+	       #layout {
+	           padding: 1em;
+	           width: 80%;
+	           margin: 0 auto;
+	           text-align: center;
+	       }
+
+	       #layout ul li {
+	           display: inline;
+	           list-style-type: none;
+	           padding-right: 20px;
+	       }
+	       /*added these css items for testing*/
+	       .booklistitem
+	       {
+	           width: 100%;
+	           border: thin solid gray;
+	           margin:1em;
+	           flex-direction: column;
+	       }
+	       .booklistitemheader
+	       {
+	           cursor: pointer;
+	           display: flex;
+	           flex-wrap: wrap;
+	       }
+	       .booklistitemheader:hover
+	       {
+	           background-color: #e6e6e6;
+	       }
+	       .title {
+	           width: 79%;
+	       }
+	</style>
 </head>
 <body>
-<div id="header">
-	<h1>Milestone 4</h1>
-</div>
-<div id="search">
-    <input id="search_val" type="text" name="search" placeholder="Search...">
-    <button class="button" id="search_button" type="button">Search</button>
-</div>
-<div id="pages">
-    <ul>
-        <li><button class="button" id="0" type="button">1</button></li>
-        <li><button class="button" id="1" type="button">2</button></li>
-        <li><button class="button" id="2" type="button">3</button></li>
-        <li><button class="button" id="3" type="button">4</button></li>
-        <li><button class="button" id="4" type="button">5</button></li>
-        <li><button class="button" id="bookshelf" type="button">My Bookshelf</button></li>
-    </ul>
-</div>
-<div id='layout'>
-    <ul>
-        <li><button class="button" id="grid" type="button">Grid</button></li>
-        <li><button class="button" id="list" type="button">List</button></li>
-    </ul>
-</div>
-<div id="maincontent">
-	<div id="booklist" layout="list"></div>
-</div>
+	<div id="header">
+		<h1>Milestone 4</h1>
+	</div>
+	<div id="search">
+		<input id="search_val" name="search" placeholder="Search..." type="text"> <button class="button" id="search_button" type="button">Search</button>
+	</div>
+	<div id="pages">
+		<ul>
+			<li><button class="button" id="0" type="button">1</button></li>
+			<li><button class="button" id="1" type="button">2</button></li>
+			<li><button class="button" id="2" type="button">3</button></li>
+			<li><button class="button" id="3" type="button">4</button></li>
+			<li><button class="button" id="4" type="button">5</button></li>
+			<li><button class="button" id="bookshelf" type="button">My Bookshelf</button></li>
+		</ul>
+	</div>
+	<div id='layout'>
+		<ul>
+			<li><button class="button" id="grid" type="button">Grid</button></li>
+			<li><button class="button" id="list" type="button">List</button></li>
+		</ul>
+	</div>
+	<div id="maincontent">
+		<div id="booklist"></div>
+	</div>
 </body>
-
 </html>
