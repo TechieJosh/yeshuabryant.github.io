@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Movie Database</title>
+	<link href="/normalize.css" rel="stylesheet" type="text/css">
+	<link href="/style.css" rel="stylesheet" type="text/css">
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js" type="text/javascript">
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.0/mustache.min.js">
+	</script>
+	<script id="movielisttemplate" type="text/template">
+	       {{#results}}
+	       <div class='movielistitem' id="{{id}}">
+	           <div class="movielistitemheader" data-movieid="{{id}}">
+	               <img class='thumbnail' src='https://image.tmdb.org/t/p/original{{poster_path}}'/>
+	               <div class='card'>
+	                   <h2 style='text-align: center'>{{title}}</h2>
+	                   <h4 style='text-align: center'>Overview</h4>
+	                   <p style='text-align: center'>{{overview}}</p>
+	               </div>
+	           </div>
+	           <div class='moviedetails' style='display:none'></div>
+	       </div>
+	       {{/results}}
+	</script>
+	<script id="moviedetailstemplate" type="text/template">
+	       <div><input type="button" id="btnHide" value="Close" /></div>
+	       <div>
+	           <div>
+	               <div class="flex" id="overview-flex">
+	                   <img id="img" src='https://image.tmdb.org/t/p/original{{poster_path}}'/>
+	                   <div id="overview">
+	                       <h2 style="text-align: center">{{title}}</h2>
+	                       <h4 style='text-align: center'>Overview</h4>
+	                       <p style='text-align: center'>{{overview}}</p>
+	                   </div>
+	               </div>
+	               <div class="flex" id="details-flex">
+	                   <p><b>Release Date: </b>{{release_date}}</p>
+	                   <p><b>Language: </b>{{original_language}}</p>
+	                   <p><b>Popularity: </b>{{popularity}}</p>
+	                   <p><b>Vote Count: </b>{{vote_count}}</p>
+	                   <p><b>Vote Average: </b>{{vote_average}}</p>
+	                   <p><b>Tagline: </b>{{tagline}}</p>
+	                   <p><b>Status: </b>{{status}}</p>
+	                   <p><b>Runtime: </b>{{runtime}}</p>
+	                   <p><b>Revenue: </b>{{revenue}}</p>
+	                   <p><b>Budget: </b>{{budget}}</p>
+	                   <p><b>IMDB: </b><a href="http://www.imdb.com/title/{{imdb_id}}" target="_blank">Visit</a></p>
+	                   <p><b>Homepage: </b><a href="{{homepage}}" target="_blank">Visit</a></p>
+	               </div>
+
+	               <!--
+	               <button style="text-align: center" class="button" id="castBtn" type="button">Cast</button>
+	               <div id="cast"></div>
+	               -->
+
+	           </div>
+	           <div style="clear:both"></div>
+	       </div>
+	</script><!--
+    <script id="casttemplate" type="text/template">
+        <div class="flex" id="cast-flex">
+            {{#cast}}
+            <p>{{name}}</p>
+            {{/cast}}
+        </div>
+    </script>
+    -->
+
+	<script type="text/javascript">
+	    $(document).ready(function ()
+	    {
+	        var api_key = "3d3b15dd319167f21006071747096bbe";
+
+	        $("#search_button").click(function ()
+	        {
+	           $("#movielist").html("");
+	           var search = $("#search_val").val();
+	           var parameter = "&query=" + search;
+	           var url = "https://api.themoviedb.org/3/search/movie?api_key=" + api_key + "&language=en-US" + parameter;
+	           searchMovie(url);
+	       });
+	       $("#0").click(function()
+	       {
+	           $("#movielist").html("");
+	           var search = $("#search_val").val();
+	           var parameter = "&query=" + search;
+	           var url = "https://api.themoviedb.org/3/search/movie?api_key=" + api_key + "&language=en-US" + parameter;
+	           searchMovie(url);
+	       });
+
+	       $("#1").click(function()
+	       {
+	           $("#movielist").html("");
+	           var search = $("#search_val").val();
+	           var parameter = "&query=" + search + "&page=2";
+	           var url = "https://api.themoviedb.org/3/search/movie?api_key=" + api_key + "&language=en-US" + parameter;
+	           searchMovie(url);
+	       });
+
+	       $("#2").click(function()
+	       {
+	           $("#movielist").html("");
+	           var search = $("#search_val").val();
+	           var parameter = "&query=" + search + "&page=3";
+	           var url = "https://api.themoviedb.org/3/search/movie?api_key=" + api_key + "&language=en-US" + parameter;
+	           searchMovie(url);
+	       });
+
+	       $("#3").click(function()
+	       {
+	           $("#movielist").html("");
+	           var search = $("#search_val").val();
+	           var parameter = "&query=" + search + "&page=4";
+	           var url = "https://api.themoviedb.org/3/search/movie?api_key=" + api_key + "&language=en-US" + parameter;
+	           searchMovie(url);
+	       });
+
+	       $("#4").click(function()
+	       {
+	           $("#movielist").html("");
+	           var search = $("#search_val").val();
+	           var parameter = "&query=" + search + "&page=5";
+	           var url = "https://api.themoviedb.org/3/search/movie?api_key=" + api_key + "&language=en-US" + parameter;
+	           searchMovie(url);
+	       });
+
+	       $("#popular").click(function ()
+	        {
+	           $("#movielist").html("");
+	           var url = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=" + api_key;
+	           searchMovie(url);
+	       });
+
+	       $("#top_rated").click(function ()
+	        {
+	           $("#movielist").html("");
+	           var url = "https://api.themoviedb.org/3/movie/top_rated?api_key=" + api_key + "&language=en-US&page=1";
+	           searchMovie(url);
+	       });
+
+	       $("#upcoming").click(function ()
+	        {
+	           $("#movielist").html("");
+	           var url = "https://api.themoviedb.org/3/movie/upcoming?api_key=" + api_key + "&language=en-US&page=1";
+	           searchMovie(url);
+	       });
+
+	       /*$("#castBtn").click(function ()
+	        {
+	           $("#cast").html("");
+	           var url = "https://api.themoviedb.org/3/movie/5559/credits?api_key=3d3b15dd319167f21006071747096bbe";
+	           getCast(url);
+	       });*/
+
+	    });
+
+	    function searchMovie(servicePoint)
+	    {
+
+	        $.getJSON(servicePoint, function (jsonData)
+	        {
+	           var template = $('#movielisttemplate').html();
+	           var html = Mustache.render(template, jsonData);
+	           $("#movielist").append(html);
+	           if ($("#movielist").attr("layout")=="List") {
+	               $(".movielistitem").css("width", "100%");
+	               $(".thumbnail").css("width", "20%").css("height", "20%");
+	               $(".card").show();
+	           }
+	           else {
+	               $(".movielistitem").css("width", "23%");
+	               $(".thumbnail").css("width", "100%").css("height", "100%");
+	               $(".card").hide();
+	           }
+	            $(".movielistitemheader").on('click', function ()
+	            {
+	               div=$(this).next();
+	               getmoviedetails($(this).attr("data-movieid"), div);
+	            });
+	        });
+	    }
+
+	    function getmoviedetails(movieid, div)
+	    {
+
+	        $.getJSON("https://api.themoviedb.org/3/movie/" + movieid + "?api_key=3d3b15dd319167f21006071747096bbe&language=en-US", function (jsonData)
+	        {
+	           $("#moviedetails").html("");
+	           var template = $('#moviedetailstemplate').html();
+	           var html = Mustache.render(template, jsonData);
+	           $("#moviedetails").html(html);
+	           $("#moviedetails").fadeIn();
+
+	           $("#btnHide").click(function ()
+	           {
+	               $("#moviedetails").fadeOut();
+	           });
+
+	        });
+	    }
+
+	    /*function getCast(movieid)
+	    {
+	        $.getJSON("https://api.themoviedb.org/3/movie/" + movieid + "/credits?api_key=3d3b15dd319167f21006071747096bbe"), function (jsonData)
+	        {
+	           $("#cast").html("");
+	           var template = $('#casttemplate').html();
+	           var html = Mustache.render(template, jsonData);
+	           $("#cast").html(html);
+	           $("#cast").fadeIn();
+	        }
+
+	    }*/
+	</script>
+	<script>
+	$(function(){
+	   $("#grid").click(function (){
+	       $(".movielistitem").css("width", "23%").css("flex-direction", "row");
+	       $("#movielist").attr("layout","Grid");
+	       $(".card").hide();
+	       $(".thumbnail").css("width", "100%").css("height", "100%");
+	   });
+
+	   $("#list").click(function (){
+	       $(".movielistitem").css("width", "100%").css("flex-direction", "column");
+	       $("#movielist").attr("layout","List");
+	       $(".card").show();
+	       $(".thumbnail").css("width", "20%").css("height", "20%");
+	   });
+	});
+	</script>
+	<style type="text/css">
+	       #header {
+	           background: #3CB371;
+	           color: #fff;
+	           padding: 1px 5%;
+	           box-shadow: 0 1px 3px #555;
+	           margin: auto;
+	           text-align: center;
+	       }
+
+	       #search {
+	           padding: 1em;
+	           width: 98%;
+	           margin: 0 auto;
+	           text-align: center;
+	       }
+
+	       #search input {
+	           margin: 0 auto;
+	           text-align: center;
+	       }
+
+	       #maincontent {
+	           display: flex;
+	           flex-wrap: wrap;
+	       }
+
+	       #movielist {
+	           width: 80%;
+	           padding: 1em;
+	           margin-bottom: 3em;
+	           margin: 0 auto;
+	           height: 100%;
+	           display: flex;
+	           flex-wrap: wrap;
+	       }
+
+	       .button {
+	           -webkit-border-radius: 2px;
+	           -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+	           -webkit-user-select: none;
+	           background: -webkit-linear-gradient(#fafafa, #f4f4f4 40%, #e5e5e5);
+	           border: 1px solid #aaa;
+	           color: #444;
+	           font-size: inherit;
+	           margin-bottom: 0px;
+	           min-width: 4em;
+	           padding: 3px 12px 3px 12px;
+	           font-family: sans-serif;
+	           text-decoration: none;
+	       }
+
+	       .button:hover {
+	           -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+	           background: #ebebeb -webkit-linear-gradient(#fefefe, #f8f8f8 40%, #e9e9e9);
+	           border-color: #999;
+	           color: #222;
+	       }
+
+	       .button:active {
+	           -webkit-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.2);
+	           background: #ebebeb -webkit-linear-gradient(#f4f4f4, #efefef 40%, #dcdcdc);
+	           color: #333;
+	       }
+
+	       .movielistitem {
+	           width: 100%;
+	           border: thin solid gray;
+	           margin: .5em;
+	           flex-direction: column;
+	           box-shadow: 0 1px 5px #555;
+	       }
+
+	       .movielistitemheader {
+	           margin: .5em;
+	           cursor: pointer;
+	           display: flex;
+	           flex-wrap: wrap;
+	       }
+
+	       .movielistitemheader:hover {
+	           background-color: #e6e6e6;
+	       }
+
+	       .moviedetails {
+	           margin: .5em;
+	       }
+
+	       .card {
+	           width: 75%;
+	           display: none;
+	       }
+
+	       .thumbnail {
+	           width: 100%;
+	           height: 100%;
+	       }
+
+	       .line {
+	           margin: .5em auto;
+	           text-align: center;
+	       }
+
+	       .line ul li {
+	           display: inline;
+	           list-style-type: none;
+	           padding-right: 20px;
+	       }
+
+	       #navigation {
+	           display: flex;
+	           flex-wrap: wrap;
+	       }
+
+	       #moviedetails {
+	           position: fixed;
+	           top: 50px;
+	           left: 120px;
+	           overflow: auto;
+	           width: 80%;
+	           height: 80%;
+	           background-color: #FFF;
+	           padding: 10px;
+	           display: none;
+	           outline: 500px solid rgba(0, 0, 0, 0.5);
+	           box-shadow: 0 1px 9px #555;
+	           border: thin solid gray;
+	       }
+
+	       #img {
+	           height: 20%;
+	           width: 20%;
+	       }
+
+	       #overview {
+	           width: 75%;
+	           margin: .2em auto;
+	       }
+
+	       .flex {
+	           display: flex;
+	           flex-wrap: wrap;
+	       }
+
+	       #details-flex p {
+	           width: 32%;
+	           text-align: center;
+	       }
+
+	       #cast-flex p {
+	           width: 32%;
+	           text-align: center;
+	       }
+	</style>
+</head>
+<body>
+	<div id="header">
+		<h1 style="text-shadow: 0 1px 5px #555;">Term Project</h1>
+	</div>
+	<div id="navigation">
+		<div class="line" id="pages">
+			<ul>
+				<li><button class="button" id="0" type="button">1</button></li>
+				<li><button class="button" id="1" type="button">2</button></li>
+				<li><button class="button" id="2" type="button">3</button></li>
+				<li><button class="button" id="3" type="button">4</button></li>
+				<li><button class="button" id="4" type="button">5</button></li>
+			</ul>
+		</div>
+		<div class="line" id='layout'>
+			<ul>
+				<li><button class="button" id="grid" type="button">Grid</button></li>
+				<li><button class="button" id="list" type="button">List</button></li>
+			</ul>
+		</div>
+		<div class="line" id='discover'>
+			<ul>
+				<li><button class="button" id="popular" type="button">Popular Movies</button></li>
+				<li><button class="button" id="top_rated" type="button">Top Rated Movies</button></li>
+				<li><button class="button" id="upcoming" type="button">Upcoming Movies</button></li>
+			</ul>
+		</div>
+		<div id="search">
+			<input id="search_val" name="search" placeholder="Search..." type="text"> <button class="button" id="search_button" type="button">Search</button>
+		</div>
+	</div>
+	<div id="maincontent">
+		<div id="movielist"></div>
+	</div>
+	<div id="moviedetails"></div>
+</body>
+</html>
